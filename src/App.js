@@ -8,6 +8,7 @@ import Header from "./components/Header/Header";
 import Register from "./components/Register/Register";
 import AuthProvider from "./context/AuthProvider";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
+        <Footer />
       </Router>
     </AuthProvider>
   );

@@ -12,6 +12,7 @@ const Header = () => {
     <div
       style={{
         backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${header})`,
+        // filter: 'blur(.5px)'
       }}
       className="header"
     >
@@ -24,7 +25,8 @@ const Header = () => {
             <Link to="/home">Home</Link>
           </li>
           <li>
-            <Link to="/login">Login / Register</Link>
+          {user?.displayName ?'':
+            <Link to="/login">Login / Register</Link>}
           </li>
           <li>
             <Link className="btn-book" to="/book">
@@ -42,9 +44,9 @@ const Header = () => {
       </nav>
       <div className="title-container">
        {
-       user? <h3>{user?.displayName}</h3>:''
+       user? <h3>Welcome :Mr. {user?.displayName}</h3>:''
        }
-       <h1>Burj Al Arab</h1>
+       <h1>BhaiBhai Hotel</h1>
         <h2>A global icon of Arabian luxury</h2>
       </div>
     </div>

@@ -14,6 +14,7 @@ import LocalHotelIcon from '@material-ui/icons/LocalHotel';
 import WcIcon from '@material-ui/icons/Wc';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { useHistory } from 'react-router-dom';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,6 +46,7 @@ export default function Room({room}){
         history.push(`/book/${bedType}`);
     }
   return (
+    
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -81,5 +83,6 @@ export default function Room({room}){
         </Button>
       </CardActions>
     </Card>
+    
   );
 }
