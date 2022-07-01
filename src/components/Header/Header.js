@@ -32,7 +32,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            {user.displayName ? (
+            {user?.displayName ? (
               <button onClick={logOut} className="btn btn-danger">Log out</button>
             ) : (
                 <button onClick={signInUsingGoogle} className="btn btn-primary">Log In</button>

@@ -3,13 +3,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import useFirebase from "../../hooks/useFirebase";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-  const { user, signInUsingGoogle } = useAuth();
+
+  const { user,setUser,setIsLoading, signInUsingGoogle } = useAuth();
+  const location = useLocation();
+  const history = useHistory();
+  const redirect_uri= location.state?.from || '/home';
+
+  console.log(location)
   console.log(user);
+
+  const handleGoogleLogin =()=>{
+    signInUsingGoogle()
+    .then(result=>{
+      console.log(result.user);
+      setUser(result.user)
+      history.push(redirect_uri);
+  }).catch((error) => {
+     const errorCode = error.code;
+     const errorMessage = error.message;
+     console.log(`${errorCode} : ${errorMessage}`)
+   }).finally(()=>setIsLoading(false))
+  }
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
@@ -45,7 +64,7 @@ const Login = () => {
           <Link className="link" to="/register">
             Sign Up
           </Link>
-          <Button onClick={signInUsingGoogle} className="google w-100 my-5 d-flex justify-content-center align-items-center">
+          <Button onClick={handleGoogleLogin} className="google w-100 my-5 d-flex justify-content-center align-items-center">
             <i className="fa-brands fa-google"></i>{" "}
             <span className="mx-5">Google</span>
           </Button>

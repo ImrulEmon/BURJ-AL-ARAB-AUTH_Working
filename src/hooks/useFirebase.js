@@ -16,15 +16,15 @@ const useFirebase = () => {
     // ===== Sign in using Google =====
     const signInUsingGoogle = () =>{
       setIsLoading(true)
-         signInWithPopup(auth, provider)
-         .then(result=>{
-             console.log(result.user);
-             setUser(result.user)
-         }).catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(`${errorCode} : ${errorMessage}`)
-          }).finally(()=>setIsLoading(false))
+      return signInWithPopup(auth, provider)
+        //  .then(result=>{
+        //      console.log(result.user);
+        //      setUser(result.user)
+        //  }).catch((error) => {
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //     console.log(`${errorCode} : ${errorMessage}`)
+        //   }).finally(()=>setIsLoading(false))
      }
 
      
@@ -52,7 +52,9 @@ const useFirebase = () => {
      }
      return{
       user,
+      setUser,
       isLoading,
+      setIsLoading,
       signInUsingGoogle,
       logOut
      }

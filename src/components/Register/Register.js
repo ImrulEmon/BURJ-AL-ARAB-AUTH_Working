@@ -3,9 +3,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { Form, Button, Card, Container } from "react-bootstrap";
 import "../Login/Login.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Register = () => {
+  const { user,setUser,setIsLoading, signInUsingGoogle } = useAuth();
+  const location = useLocation();
+  const history = useHistory();
+  const redirect_uri= location.state?.from || '/home';
+
+  // console.log(location)
+  // console.log(user);
+
+  const handleGoogleLogin =()=>{
+    signInUsingGoogle()
+    .then(result=>{
+      console.log(result.user);
+      setUser(result.user)
+      history.push(redirect_uri);
+  }).catch((error) => {
+     const errorCode = error.code;
+     const errorMessage = error.message;
+     console.log(`${errorCode} : ${errorMessage}`)
+   }).finally(()=>setIsLoading(false))
+  }
   return (
     <Container
       className="d-flex align-items-center justify-content-center"
@@ -40,7 +61,7 @@ const Register = () => {
         <div className="w-100 text-center mt-2">
           Already have an account ? <Link className="link" to='/login'>Log In</Link>
        
-          <Button className="google w-100 my-5 d-flex justify-content-center align-items-center"><i class="fa-brands fa-google"></i> <span className="mx-5">Google</span></Button>
+          <Button onClick={handleGoogleLogin} className="google w-100 my-5 d-flex justify-content-center align-items-center"><i className="fa-brands fa-google"></i> <span className="mx-5">Google</span></Button>
         </div>
       </div>
     </Container>
